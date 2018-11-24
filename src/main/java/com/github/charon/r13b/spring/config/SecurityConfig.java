@@ -31,21 +31,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 new JsonUsernamePasswordAuthenticationFilter(authenticationManager());
         jsonUsernamePasswordAuthenticationFilter.setUsernameParameter("email");
         jsonUsernamePasswordAuthenticationFilter.setPasswordParameter("password");
+        // ログイン後にリダイレクトしないでいいので、AuthenticationSuccessHandlerを設定
         jsonUsernamePasswordAuthenticationFilter
                 .setAuthenticationSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK));
+        // ログイン失敗時にリダイレクトしないでいいので、AuthenticationFailureHandlerを設定
         jsonUsernamePasswordAuthenticationFilter
                 .setAuthenticationFailureHandler((req, res, ex) -> res.setStatus(HttpServletResponse.SC_UNAUTHORIZED));
 
+        // FormログインのFilterを置き換える
         http.addFilterAt(jsonUsernamePasswordAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         // access failure handling
+        // アクセス権限（ROLE）設定したページに、未認証状態でアクセスすると403を返すので、挙動を変更
         http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+        // 403エラー時にHTTP Bodyを返すが、これは不要なのでAccessDeniedHandlerを設定
         http.exceptionHandling().accessDeniedHandler((req, res, ex) -> res.setStatus(HttpServletResponse.SC_FORBIDDEN));
 
         // logout
         http
                 .logout()
                 .logoutUrl("/logout")
+                // ログアウト時にリダイレクトしないでいいので、LogoutSuccessHandlerを設定
                 .logoutSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK))
                 .invalidateHttpSession(true);
     }

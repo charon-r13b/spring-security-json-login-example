@@ -1,0 +1,2 @@
+insert into user(email, password, name, role) values('user01@example.com', '$2a$04$5bMt55qnhiaXIkHIduBFyuWS0ON45PcG5SU.wFXN8sHRU5hNfB7Nq', '磯野 カツオ', 'ROLE_USER');
+insert into user(email, password, name, role) values('admin01@example.com', '$2a$04$5bMt55qnhiaXIkHIduBFyuWS0ON45PcG5SU.wFXN8sHRU5hNfB7Nq', '磯野 波平', 'ROLE_ADMIN');

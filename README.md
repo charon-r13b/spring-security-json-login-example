@@ -14,6 +14,8 @@ Spring Securityのログインの部分を、JSONリクエストに差し替え�
 
 設定自体の実装詳細は、`com.github.charon.r13b.spring.config.SecurityConfig`を参照。
 
+※CSRF対策はOFFにしてあるので、[こちらを見つつ](https://docs.spring.io/spring-security/site/docs/5.1.1.RELEASE/reference/htmlsingle/#csrf-include-csrf-token-ajax)クライアントと統合する。
+
 ## 構成
 
 * Spring Boot / Spring Web MVC / Spring Security

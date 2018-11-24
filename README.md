@@ -23,10 +23,12 @@ Spring Securityのログインの部分を、JSONリクエストに差し替え�
 ## 仕様
 ユーザーは、以下のものを用意。
 
-| ユーザーID（メールアドレス） | ロール |
-|:-|:-:|
-|user01@example.com| `ROLE_USER` |
-|admin01@example.com| `ROLE_ADMIN` |
+| ユーザーID（メールアドレス） | パスワード | ロール |
+|:-|:-|:-:|
+|user01@example.com| `password` | `ROLE_USER` |
+|admin01@example.com| `password` | `ROLE_ADMIN` |
+
+パスワードは、`org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder`、ストレッチ回数4＋`SecureRandom`でハッシュ化。
 
 APIは、以下のものを用意
 
